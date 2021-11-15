@@ -66,34 +66,6 @@ const deleteExpert = (uid, callback) => {
 }
 
 
-
-// const expert = {
-//   'Name': 'Abel Cañas',
-//   'Location': 'Bucaramanga, Colombia',
-//   'Occupation': 'Desarrollador frontend'
-// }
-
-//? Para Probar los métodos
-// addExpert(expert, (status) => {
-//   console.log(status);
-// })
-
-// deleteExpert('0gjstHiGNIZ5j2EFFpVj', (status) => {
-//   console.log(status);
-// })
-
-/*
-getExpert('9gucLjdMurDolkz8MsMS', (expertData) => {
-  console.log(expertData);
-})
-
-//?-------------------------
-*/
-
-// updateExpert('l1Y6I9sFzNMz166XfYGD', expert, (status) => {
-//   console.log(status);
-// })
-
 module.exports = {
   getExperts,
   getExpert,
