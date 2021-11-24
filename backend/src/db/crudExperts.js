@@ -6,8 +6,10 @@ const getExperts = (callback) => {
     .then((docs) => {
       var arrayExperts = [];
       docs.forEach((expert) => {
+        const obj = expert.data();
+        obj.uid = expert.id;
         // console.log(user.data());
-        arrayExperts.push(expert.data())
+        arrayExperts.push(obj);
       });
       callback(arrayExperts);
     }).catch((error) => {
@@ -65,12 +67,31 @@ const deleteExpert = (uid, callback) => {
     })
 }
 
+//! Buscar un experto
+const searchExpert = (location, callback) => {
+  return db.collection('experts').where('Location', '==', location).get()
+    .then((refDoc) => {
+      var arrayExperts = [];
+      refDoc.forEach(doc => {
+        // arrayExperts.push(doc.data());
+        const obj = doc.data();
+        obj.uid = doc.id;
+        arrayExperts.push(obj);
+      })
+      callback(arrayExperts);
+    })
+    .catch((err) => {
+      callback(`Error to search expert ${err}`);
+    })
+}
+
 
 module.exports = {
-  getExperts,
-  getExpert,
   addExpert,
+  getExpert,
+  getExperts,
   deleteExpert,
+  searchExpert,
   updateExpertTotally,
   updateExpertPartially
 };

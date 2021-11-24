@@ -12,7 +12,7 @@ app.get('/experts', (req, res) => {
     })
 });
 
-//? Traer un experto específico
+//? Traer un experto específico por id
 app.get('/experts/:id', (req, res) => {
     const uid = req.params.id;
     dbE.getExpert(uid, (refDoc) => {
@@ -23,9 +23,13 @@ app.get('/experts/:id', (req, res) => {
 //? Crear un experto en la DB
 app.post('/experts', (req, res) => {
     const expert = req.body;
-    dbE.addExpert(expert, (status) => {
-        res.json(status);
-    })
+    try {
+        dbE.addExpert(expert, (status) => {
+            res.status(201).json(status);
+        })
+    } catch (error) {
+        res.status(503).json(error);
+    }
 });
 
 //? Actualizar totalmente un experto en la DB
@@ -56,6 +60,15 @@ app.delete('/experts/:id', (req, res) => {
         res.json(status);
     })
 });
+
+
+//? Buscar un experto por parámetro ( location )
+app.get('/experts/search/:location', (req, res) => {
+    const location = req.params.location;
+    dbE.searchExpert(location, (refDoc) => {
+        res.json(refDoc);
+    })
+})
 
 
 app.listen(port, () => {
