@@ -37,6 +37,16 @@ const addExpert = (expert, callback) => {
     })
 }
 
+//! Crear un experto con el ID de Firebase
+const addExpertWithID = (uid, expert, callback) => {
+  return db.collection('experts').doc(uid).set(expert)
+    .then(() => {
+      callback('Success');
+    }).catch((error) => {
+      callback(`Error to get users ${error}`);
+    })
+}
+
 //! Actualizar todo un experto
 const updateExpertTotally = (uid, expert, callback) => {
   return db.collection('experts').doc(uid).set(expert)
@@ -69,7 +79,7 @@ const deleteExpert = (uid, callback) => {
 
 //! Buscar un experto
 const searchExpert = (location, callback) => {
-  return db.collection('experts').where('Location', '==', location).get()
+  return db.collection('experts').where('location', '==', location).get()
     .then((refDoc) => {
       var arrayExperts = [];
       refDoc.forEach(doc => {
@@ -92,6 +102,7 @@ module.exports = {
   getExperts,
   deleteExpert,
   searchExpert,
+  addExpertWithID,
   updateExpertTotally,
   updateExpertPartially
 };

@@ -1,10 +1,10 @@
 import React from 'react';
-
+import LandingImages from '../components/LandingImages';
 const Landing = () => {
     return (
-        <div>
-            <h1>Landing Works!</h1>
-        </div>
+        <>
+            <LandingImages />
+        </>
     );
 }
 

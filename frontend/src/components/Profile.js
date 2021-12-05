@@ -1,27 +1,33 @@
 import React from 'react';
 import { Stack, Image } from 'react-bootstrap';
 import { GeoAlt, Briefcase, Whatsapp } from 'react-bootstrap-icons';
-import profile3 from '../assets/img/profile-3.jpeg';
 
-const Profile = () => {
+const Profile = (props) => {
+    const { expertData } = props;
+
+    const goToWhatsApp = (contactLink) => {
+        window.open(contactLink);
+    }
     return (
         <>
             <Stack gap={2} className="align-items-center">
-                <Image src={profile3} roundedCircle width="130px" height="100px"></Image>
-                <h4>Liset Viviana Paternina</h4>
+                <Image src={expertData.photoUrl} roundedCircle width="100px" height="100px"></Image>
+                <h4>{expertData.name}</h4>
                 <div>
                     <Stack gap={2} direction="horizontal">
                         <GeoAlt />
-                        <div>Manizales</div>
+                        <div>{expertData.location}</div>
                     </Stack>
 
                     <Stack gap={2} direction="horizontal">
                         <Briefcase />
-                        <div>Clases de Coach</div>
+                        <div>{expertData.bio}</div>
                     </Stack>
                 </div>
-                <p className="text-center">¡Hola me encanta el couching, y tengo experiencia en diferentes campos como: Tecnología, Deportes y Artes</p>
-                <Whatsapp size={40} color="green" />
+                <p className="text-center">{expertData.occupation}</p>
+
+                <Whatsapp size={40} color="green" onClick={() => goToWhatsApp(expertData.contactLink)} />
+
             </Stack>
         </>
     );

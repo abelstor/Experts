@@ -1,9 +1,11 @@
 const express = require('express');
 const dbE = require('./src/db/crudExperts');
 const app = express();
-const port = 3000;
+const cors = require('cors');
+const port = 5000;
 
 app.use(express.json());
+app.use(cors());
 
 //? Traer todos los expertos
 app.get('/experts', (req, res) => {
@@ -30,6 +32,16 @@ app.post('/experts', (req, res) => {
     } catch (error) {
         res.status(503).json(error);
     }
+});
+
+//? Crear un experto en la DB con el ID de Firebase
+app.post('/experts/:id', (req, res) => {
+    const uid = req.params.id;
+    const expert = req.body;
+    expert.id = uid;
+    dbE.addExpertWithID(uid, expert, (status) => {
+        res.json(status);
+    })
 });
 
 //? Actualizar totalmente un experto en la DB
